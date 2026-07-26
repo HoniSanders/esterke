@@ -2,18 +2,18 @@
 # -*- coding: utf-8 -*-
 """
 Apply the Esterke errata (folios 81-150) to esterke_clean_scripted.txt,
-producing esterke_final.txt. Each fix is an exact (old -> new) string
+producing esterke_transcription.txt. Each fix is an exact (old -> new) string
 replacement drawn from the errata files. Run with no args for a DRY-RUN
 coverage report; run with `apply` to write the output file.
 
 Usage:  python3 apply_errata.py            # dry run, prints coverage
-        python3 apply_errata.py apply      # writes esterke_final.txt
+        python3 apply_errata.py apply      # writes esterke_transcription.txt
 """
 import sys, io, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "source", "esterke_clean_scripted.txt")
-OUT = os.path.join(ROOT, "esterke_final.txt")
+OUT = os.path.join(ROOT, "esterke_transcription.txt")
 
 # Each entry: (old, new). `old` must be a substring of the current text.
 # Ordered roughly by folio. Structural (multi-line) fixes come after the
@@ -534,7 +534,7 @@ def main():
             f.write(text)
         print(f"\nWROTE {OUT}")
     else:
-        print("\n(dry run — pass 'apply' to write esterke_final.txt)")
+        print("\n(dry run — pass 'apply' to write esterke_transcription.txt)")
 
 if __name__ == "__main__":
     main()

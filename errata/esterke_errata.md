@@ -4,7 +4,7 @@ Scan-vs-cleaned-text errata for the whole play, compiled batch by batch during
 the correction pass. Baseline: `source/esterke_clean_scripted.txt`; reference:
 the IA scan `source/nybc200294.pdf` rasterized at 150 dpi (400 dpi for the few
 `{verify}` spots). These corrections are applied by `scripts/apply_errata.py`
-to produce `esterke_final.txt`; kept here as the audit trail.
+to produce `esterke_transcription.txt`; kept here as the audit trail.
 
 ---
 

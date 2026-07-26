@@ -18,7 +18,8 @@ The play occupies book folios 81–150 (PDF pages 85–154).
 ## Layout
 
 ```
-esterke_final.txt                   ← the corrected reading text (main product), folios 81–150
+esterke_transcription.txt                   ← the corrected transcription (main product), folios 81–150
+esterke_transcription.pdf                   ← the transcription typeset as a clean right-to-left reading PDF
 source/
   nybc200294.pdf                    ← the Internet Archive scan (input)
   esterke_yiddish_ocr.txt           ← raw OCR text layer, as extracted
@@ -30,8 +31,9 @@ digest/
   esterke_dialogue_summary.pdf      ← the digest as a 2-column landscape "playbill"
 scripts/
   correct_esterke_ocr.py            ← the frozen OCR-correction script
-  apply_errata.py                   ← applies errata/ → esterke_final.txt
+  apply_errata.py                   ← applies errata/ → esterke_transcription.txt
   make_summary_pdf.py               ← renders digest .md → .pdf (headless Chrome)
+  make_transcription_pdf.py         ← renders esterke_transcription.txt → RTL reading .pdf
 ```
 
 ## Pipeline
@@ -50,13 +52,14 @@ scripts/
    `errata/esterke_errata.md`.
 4. **Apply** the errata to produce the final text:
    `python3 scripts/apply_errata.py` (dry-run coverage report) → `… apply`
-   (writes `esterke_final.txt`).
+   (writes `esterke_transcription.txt`).
 
 ## Reproduce
 
 ```bash
-python3 scripts/apply_errata.py apply      # → esterke_final.txt
-python3 scripts/make_summary_pdf.py        # → digest/esterke_dialogue_summary.pdf
+python3 scripts/apply_errata.py apply       # → esterke_transcription.txt
+python3 scripts/make_transcription_pdf.py   # → esterke_transcription.pdf   (RTL reading edition)
+python3 scripts/make_summary_pdf.py         # → digest/esterke_dialogue_summary.pdf
 ```
 Both scripts resolve their own paths, so they can be run from anywhere.
 `make_summary_pdf.py` drives **headless Google Chrome** to render the two-column
