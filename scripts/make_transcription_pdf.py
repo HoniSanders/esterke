@@ -29,6 +29,9 @@ hr.rule { border: none; border-top: 1.2pt solid #7a1616; width: 34%;
   margin: 13pt auto 20pt; }
 .folio { text-align: center; color: #b0a396; font-size: 9.5pt; letter-spacing: 1pt;
   margin: 15pt 0 7pt; }
+.casthead { text-align: center; font-weight: 700; font-size: 12.5pt; letter-spacing: 1.5pt;
+  color: #333; margin: 6pt 0 16pt; }
+.cast { text-align: center; color: #222; margin: 0 0 3pt; }
 .head { text-align: center; font-weight: 700; font-size: 16pt; letter-spacing: 4pt;
   color: #7a1616; margin: 14pt 0 10pt; }
 .cue { font-weight: 700; color: #111; margin-top: 7pt; }
@@ -52,6 +55,7 @@ def build(lines):
     marker = 0        # count of page-break markers seen
     depth = 0         # open-paren depth (stage directions)
     pending_gap = False
+    cast_header_seen = False
     def cls(*c):
         c = [x for x in c if x]
         return (' class="%s"' % " ".join(c)) if c else ""
@@ -68,6 +72,15 @@ def build(lines):
             if 81 <= folio <= 150:
                 out.append(f'<div class="folio">· {folio} ·</div>')
             pending_gap = False
+            continue
+        # dramatis personae (the segment after the 1st page break)
+        if marker == 1:
+            pending_gap = False
+            if not cast_header_seen:
+                cast_header_seen = True
+                out.append(f'<div class="casthead">{esc(s)}</div>')
+            else:
+                out.append(f'<p class="cast">{esc(s)}</p>')
             continue
         gap = "gap" if pending_gap else ""
         pending_gap = False
